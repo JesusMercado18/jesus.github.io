@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flor Amarilla - Te Mucho Mami</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+        canvas {
+            border: 2px solid #000;
+            touch-action: none; /* Para evitar el comportamiento predeterminado del tacto */
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="400" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Dibujar la flor amarilla
+    function dibujarFlor() {
+        // Centro de la flor
+        ctx.beginPath();
+        ctx.arc(200, 200, 40, 0, Math.PI * 2, false);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+
+        // Pétalos
+        for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i;
+            const x = 200 + Math.cos(angle) * 90;
+            const y = 200 + Math.sin(angle) * 90;
+            
+            ctx.beginPath();
+            ctx.arc(x, y, 40, 0, Math.PI * 2, false);
+            ctx.fillStyle = "yellow";
+            ctx.fill();
+        }
+
+        // Tallo
+        ctx.beginPath();
+        ctx.moveTo(200, 240);
+        ctx.lineTo(200, 350);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "green";
+        ctx.stroke();
+
+        // Hojas
+        ctx.beginPath();
+        ctx.moveTo(200, 280);
+        ctx.lineTo(240, 320);
+        ctx.lineTo(200, 300);
+        ctx.fillStyle = "green";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(200, 280);
+        ctx.lineTo(160, 320);
+        ctx.lineTo(200, 300);
+        ctx.fillStyle = "green";
+        ctx.fill();
+    }
+
+    // Dibujar el texto
+    function dibujarTexto() {
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Te mucho mami", 200, 380);
+    }
+
+    // Detectar si se abre en un dispositivo móvil y dibujar la flor y el texto
+    function esMovil() {
+        return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    if (esMovil()) {
+        dibujarFlor();
+        dibujarTexto();
+    } else {
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        ctx.fillText("Por favor, abre esta página en un dispositivo móvil", 200, 200);
+    }
+</script>
+
+</body>
+</html>
